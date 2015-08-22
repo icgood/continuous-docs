@@ -112,32 +112,14 @@ GitHub will generate a [GitHub Pages](https://pages.github.com/) site for any
 repository that has a `gh-pages` branch. Let's set ours up now:
 
     git checkout --orphan gh-pages
-    git reset HEAD -- .
-    git status
+    git rm -rf .
 
-You should see the contents of the `master` branch as untracked files. Add the
-`.gitignore` file and clean up the rest:
+Now we want to sub-module the `master` branch, so that we can build docs
+directly from it into `gh-pages`.
 
-    git add .gitignore
-    git clean -df
-
-Finally, because docs will be generated into subdirectories by version, you
-probably want an `index.html` that redirects to the `latest` directory symlink:
-
-```html
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <meta http-equiv="refresh" content="0;url=/latest/" />
-  </head>
-</html>
-```
-
-Add the file and commit:
-
-    git add index.html
-    git commit -m 'Initial commit'
+    # Fill in your own repository URL!
+    git submodule add -b master https://github.com/your-user/your-repo.git master
+    git commit -m 'initial commit'
 
 ## Setting up Jenkins
 
