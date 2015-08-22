@@ -114,12 +114,16 @@ repository that has a `gh-pages` branch. Let's set ours up now:
     git checkout --orphan gh-pages
     git rm -rf .
 
-Now we want to sub-module the `master` branch, so that we can build docs
-directly from it into `gh-pages`.
+Now add an `index.html` file and commit:
 
-    # Fill in your own repository URL!
-    git submodule add -b master https://github.com/your-user/your-repo.git master
+    touch index.html
+    git add index.html
     git commit -m 'initial commit'
+
+Obviously you'll want to replace this empty `index.html` with a real one at
+some point. Eventually, we'll be creating a `latest/` subdirectory symlink that
+will always point to the latest version of the docs. A good starting point
+would be a simple redirect to `latest/`.
 
 ## Setting up Jenkins
 
