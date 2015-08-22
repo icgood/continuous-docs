@@ -121,8 +121,8 @@ You should see the contents of the `master` branch as untracked files. Add the
     git add .gitignore
     git clean -df
 
-Finally, because docs will be generated into the `html/` subdirectory, you will
-probably want an `index.html` that redirects requests there:
+Finally, because docs will be generated into subdirectories by version, you
+probably want an `index.html` that redirects to the `latest` directory symlink:
 
 ```html
 <!DOCTYPE html>
@@ -142,22 +142,60 @@ Add the file and commit:
 ## Setting up Jenkins
 
 This is where the magic happens. We will configure a Jenkins build to checkout
-your `master` and `gh-pages` branches. Then, we will build the docs from
+your `gh-pages` and `master` branches. Then, we will build the docs from
 `master` directly into `gh-pages`. Finally, we will commit and push the
 `gh-pages` branch using the "Git Publisher" post-build action.
 
-### Creating the Job
+Let's start with a free-style job.
 
-Start with a free-style job. Choose "Multiple SCMs", so we can checkout both
-branches at once.
+### Cloning the Repositories
 
-For the first Git SCM, fill in the Repository URL and leave `*/master` for the
-branch. Click Add on "Additional Behaviours" and choose "Check out to a
-sub-directory". Type in `master/`.
+Choose "Multiple SCMs", so we can checkout both branches at once.
 
-For the second Git SCM, fill in the same Repository URL and change the branch
-to `*/gh-pages`. Add the "Check out to a sub-directory" option again, only this
-time use `gh-pages/`.
+For the first Git SCM, fill in the Repository URL and set the branch specifier
+to `*/gh-pages`.
+
+For the second Git SCM, fill in the same Repository URL and leave the branch
+specifier as `*/master`. Under "Additional Behaviours", choose "Check out to a
+sub-directory and choose enter `master/`. Also add the "Wipe out repository &
+force clone" option, to prevent building stale docs.
+
+### Building the Docs
+
+Add an "Execute shell" build step. In it, let's add some code:
+
+    virtualenv .venv
+    source .venv/bin/activate
+
+    pip install -U -r master/doc/requirements.txt
+    pip install -U master/
+
+    git rm -rf .
+    sphinx-build -b html master/doc/source/ .
+
+    git commit -m "jenkins regenerated documentation $(date +%F)"
+
+### Pushing to GitHub Pages
+
+We've now built and committed our new docs to the `gh-pages` branch, but we
+need to push it to GitHub before it will be rendered. Add a "Git Publisher"
+post-build action:
+
+* Push Only If Build Succeeds: ***&#x2713;***
+* Add Branch:
+  * Branch to push: `gh-pages`
+  * Target remote name: `origin`
+
+## Finishing Steps
+
+You should now be able to try out your Jenkins build a few times, and see the
+results on your projects Github Pages site. Try making some changes and
+rebuilding. Cool, huh?
+
+Before calling it done, you'll probably want to add a build trigger so that
+this project is built automatically (otherwise it's not "continuous
+documentation"). I recommend triggering the build after another job that runs
+unit tests, but using a webhook directly from GitHub pushes works too.
 
 ## Frequently Asked Questions
 
