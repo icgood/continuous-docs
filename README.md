@@ -157,9 +157,10 @@ Add an "Execute shell" build step. In it, let's add some code:
     pip install -U -r master/doc/requirements.txt
     pip install -U master/
 
-    git rm -rf ./latest/ || true
-    sphinx-build -b html master/doc/source/ ./latest/
-    git add ./latest/
+    version=$(python master/setup.py --version)
+    git rm -rf ./$version/ || true
+    sphinx-build -b html master/doc/source/ ./$version/
+    git add ./$version/
 
     git commit -m "jenkins regenerated documentation $(date +%F)"
 
@@ -204,19 +205,6 @@ its own dependencies from [PyPi][4], that should be all you need!
 ***A:*** Sphinx documentation is built using their heavily extended
 [reStructuredText][5] markup. You can easily add items to your
 ``.. toctree::`` with anything you want, such as usage manuals or code samples.
-
-### Q: How can I keep documentation of old versions?
-
-***A:*** Right now, documentation is generated into the `latest/` subdirectory.
-You could change this to be based on the version, e.g.:
-
-    version=$(python master/setup.py --version)
-    git rm -rf ./$version/ || true
-    sphinx-build -b html master/doc/source/ ./$version/
-    git add ./$version/
-
-However keep in mind that at that point you will need to have Jenkins start
-auto-generating your `index.html` to correctly redirect as well.
 
 ### Q: What if I don't want to build `master`?
 
