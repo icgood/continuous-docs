@@ -114,17 +114,13 @@ repository that has a `gh-pages` branch. Let's set ours up now:
     git checkout --orphan gh-pages
     git rm -rf .
 
-Now add an `index.html` file and commit:
+Now let's add the `.nojekyll` file. This tells GitHub that our content does not
+use Jekyll for rendering. Finally, commit and push:
 
-    touch index.html
-    git add index.html
+    touch .nojekyll
+    git add .nojekyll
     git commit -m 'initial commit'
     git push origin gh-pages
-
-Obviously you'll want to replace this empty `index.html` with a real one at
-some point. Eventually, we'll be creating a `latest/` subdirectory symlink that
-will always point to the latest version of the docs. A good starting point
-would be a simple redirect to `latest/`.
 
 ## Setting up Jenkins
 
@@ -154,11 +150,16 @@ Add an "Execute shell" build step. In it, let's add some code:
     virtualenv .venv
     source .venv/bin/activate
 
+    repo_url=$(git config --get remote.origin.url)
+    rm -rf master/ || true
+    git clone $repo_url master/
+
     pip install -U -r master/doc/requirements.txt
     pip install -U master/
 
-    git rm -rf .
-    sphinx-build -b html master/doc/source/ .
+    git rm -rf ./latest/ || true
+    sphinx-build -b html master/doc/source/ ./latest/
+    git add ./latest/
 
     git commit -m "jenkins regenerated documentation $(date +%F)"
 
@@ -175,9 +176,9 @@ post-build action:
 
 ## Finishing Steps
 
-You should now be able to try out your Jenkins build a few times, and see the
-results on your projects Github Pages site. Try making some changes and
-rebuilding. Cool, huh?
+You should now be able to try out your Jenkins build. The resulting docs will
+be in the `latest/` subdirectory of the GitHub Pages project page. You will
+probaby want to add an `index.html` with a redirect to that subdirectory.
 
 Before calling it done, you'll probably want to add a build trigger so that
 this project is built automatically (otherwise it's not "continuous
@@ -204,8 +205,30 @@ its own dependencies from [PyPi][4], that should be all you need!
 [reStructuredText][5] markup. You can easily add items to your
 ``.. toctree::`` with anything you want, such as usage manuals or code samples.
 
+### Q: How can I keep documentation of old versions?
+
+***A:*** Right now, documentation is generated into the `latest/` subdirectory.
+You could change this to be based on the version, e.g.:
+
+    version=$(python master/setup.py --version)
+    git rm -rf ./$version/ || true
+    sphinx-build -b html master/doc/source/ ./$version/
+    git add ./$version/
+
+However keep in mind that at that point you will need to have Jenkins start
+auto-generating your `index.html` to correctly redirect as well.
+
+### Q: What if I don't want to build `master`?
+
+***A:*** As you may have seen, the Jenkins job clones the master branch of the
+repository and builds the docs from there. However, you could also set up a
+more robust system using the [Copy Artifact Plugin][6], where an upstream build
+produces all artifacts necessary to build the documenation. Jenkins is capable
+of some very powerful workflows!
+
 [1]: http://pythonhosted.org/an_example_pypi_project/sphinx.html#full-code-example
 [2]: http://www.virtualenv.org/en/latest/
 [3]: http://sphinx-doc.org/latest/ext/intersphinx.html
 [4]: https://pypi.python.org/pypi
 [5]: http://sphinx-doc.org/rest.html
+[6]: https://wiki.jenkins-ci.org/display/JENKINS/Copy+Artifact+Plugin
