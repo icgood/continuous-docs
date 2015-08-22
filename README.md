@@ -86,7 +86,7 @@ the `doc/` directory with:
 
     make html
 
-Now, just navigate to `doc/build/html/index.html` in your browser!
+Try navigating to `doc/build/html/index.html` in your browser!
 
 ### Add Documentation Requirements
 
@@ -104,6 +104,60 @@ The entire `doc/` directory tree does not necessarily need to be put into git.
 The following should suffice:
 
     git add doc/requirements.txt doc/Makefile doc/source/conf.py doc/source/*.rst
+    git commit
+
+### Creating GitHub Pages Branch
+
+GitHub will generate a [GitHub Pages](https://pages.github.com/) site for any
+repository that has a `gh-pages` branch. Let's set ours up now:
+
+    git checkout --orphan gh-pages
+    git reset HEAD -- .
+    git status
+
+You should see the contents of the `master` branch as untracked files. Add the
+`.gitignore` file and clean up the rest:
+
+    git add .gitignore
+    git clean -df
+
+Finally, because docs will be generated into the `html/` subdirectory, you will
+probably want an `index.html` that redirects requests there:
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta http-equiv="refresh" content="0;url=/latest/" />
+  </head>
+</html>
+```
+
+Add the file and commit:
+
+    git add index.html
+    git commit -m 'Initial commit'
+
+## Setting up Jenkins
+
+This is where the magic happens. We will configure a Jenkins build to checkout
+your `master` and `gh-pages` branches. Then, we will build the docs from
+`master` directly into `gh-pages`. Finally, we will commit and push the
+`gh-pages` branch using the "Git Publisher" post-build action.
+
+### Creating the Job
+
+Start with a free-style job. Choose "Multiple SCMs", so we can checkout both
+branches at once.
+
+For the first Git SCM, fill in the Repository URL and leave `*/master` for the
+branch. Click Add on "Additional Behaviours" and choose "Check out to a
+sub-directory". Type in `master/`.
+
+For the second Git SCM, fill in the same Repository URL and change the branch
+to `*/gh-pages`. Add the "Check out to a sub-directory" option again, only this
+time use `gh-pages/`.
 
 ## Frequently Asked Questions
 
