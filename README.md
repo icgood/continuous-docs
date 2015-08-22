@@ -119,6 +119,7 @@ Now add an `index.html` file and commit:
     touch index.html
     git add index.html
     git commit -m 'initial commit'
+    git push origin gh-pages
 
 Obviously you'll want to replace this empty `index.html` with a real one at
 some point. Eventually, we'll be creating a `latest/` subdirectory symlink that
