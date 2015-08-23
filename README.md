@@ -215,6 +215,13 @@ more robust system using the [Copy Artifact Plugin][6], where an upstream build
 produces all artifacts necessary to build the documenation. Jenkins is capable
 of some very powerful workflows!
 
+### Q: Why do I get permissions errors when cloning the `master` branch?
+
+***A:*** The `git clone` command inside the job's execute shell may not apply
+the same SSH keys as the main `gh-pages` clone. You can turn on the [SSH Agent
+Plugin](https://wiki.jenkins-ci.org/display/JENKINS/SSH+Agent+Plugin) and
+enable it in the job's "Build Environment" section to work around this.
+
 [1]: http://pythonhosted.org/an_example_pypi_project/sphinx.html#full-code-example
 [2]: http://www.virtualenv.org/en/latest/
 [3]: http://sphinx-doc.org/latest/ext/intersphinx.html
