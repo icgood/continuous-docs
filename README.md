@@ -188,7 +188,8 @@ post-build action:
 
 You should now be able to try out your Jenkins build. The resulting docs will
 be in the `latest/` subdirectory of the GitHub Pages project page. You will
-probaby want to add an `index.html` with a redirect to that subdirectory.
+probaby want to add an [`index.html`](index.html.example) with a redirect to
+that subdirectory.
 
 Before calling it done, you'll probably want to add a build trigger so that
 this project is built automatically (otherwise it's not "continuous
