@@ -128,24 +128,14 @@ use Jekyll for rendering. Finally, commit and push:
 
 ## Setting up Jenkins
 
-This is where the magic happens. We will configure a Jenkins build to checkout
+This is where the magic happens. We will configure a Jenkins build to clone
 your `gh-pages` and `master` branches. Then, we will build the docs from
 `master` directly into `gh-pages`. Finally, we will commit and push the
 `gh-pages` branch using the "Git Publisher" post-build action.
 
-Let's start with a free-style job.
-
-### Cloning the Repositories
-
-Choose "Multiple SCMs", so we can checkout both branches at once.
-
-For the first Git SCM, fill in the Repository URL and set the branch specifier
-to `*/gh-pages`.
-
-For the second Git SCM, fill in the same Repository URL and leave the branch
-specifier as `*/master`. Under "Additional Behaviours", choose "Check out to a
-sub-directory and choose enter `master/`. Also add the "Wipe out repository &
-force clone" option, to prevent building stale docs.
+Let's start with a free-style job. When configuring your Git repository, make
+sure you use the branch specifier `*/gh-pages`. We will clone the `master`
+branch separately in the next section.
 
 ### Building the Docs
 
@@ -165,8 +155,8 @@ Add an "Execute shell" build step. In it, let's add some code:
     git rm -rf ./$version/ || true
     sphinx-build -b html master/doc/source/ ./$version/
     ln -sf $version latest
-    git add ./$version/ latest
 
+    git add ./$version/ latest
     git commit -m "jenkins regenerated documentation $(date +%F)"
 
 ### Pushing to GitHub Pages
