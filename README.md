@@ -25,8 +25,10 @@ Inside your virtualenv, run:
 
 Create a `doc` directory in your project, we'll add it to git later:
 
-    mkdir -p doc
-    cd doc
+```bash
+mkdir -p doc
+cd doc
+```
 
 Create the basic configuration and file structure:
 
@@ -54,30 +56,34 @@ directive. Let's consider the following Python package:
 
 One package, three modules. Replace your `index.rst` with the following:
 
-    ``docpkg`` Package
-    ==================
+```rst
+``docpkg`` Package
+==================
 
-    .. automodule:: docpkg
-       :members:
+.. automodule:: docpkg
+   :members:
 
-    -------------------
+-------------------
 
-    **Sub-Modules:**
+**Sub-Modules:**
 
-    .. toctree::
+.. toctree::
 
-       docpkg.main
-       docpkg.config
+   docpkg.main
+   docpkg.config
+```
 
 Now we're going to create two more files, `docpkg.main.rst` and
 `docpkg.config.rst`.  I'll give you `docpkg.main.rst`, create
 `docpkg.config.rst` the same way:
 
-    ``docpkg.main`` Module
-    ========================
+```rst
+``docpkg.main`` Module
+========================
 
-    .. automodule:: docpkg.main
-       :members:
+.. automodule:: docpkg.main
+   :members:
+```
 
 As you add more modules to your project, they need to be added to the
 documentation structure. You can obviously put more than one `.. automodule::`
@@ -107,24 +113,30 @@ In the future, you might add others with themes or optional packages.
 The entire `doc/` directory tree does not necessarily need to be put into git.
 The following should suffice:
 
-    git add doc/requirements.txt doc/Makefile doc/source/conf.py doc/source/*.rst
-    git commit
+```bash
+git add doc/requirements.txt doc/Makefile doc/source/conf.py doc/source/*.rst
+git commit
+```
 
 ### Creating GitHub Pages Branch
 
 GitHub will generate a [GitHub Pages][4] site for any
 repository that has a `gh-pages` branch. Let's set ours up now:
 
-    git checkout --orphan gh-pages
-    git rm -rf .
+```bash
+git checkout --orphan gh-pages
+git rm -rf .
+```
 
 Now let's add the `.nojekyll` file. This tells GitHub that our content does not
 use Jekyll for rendering. Finally, commit and push:
 
-    touch .nojekyll
-    git add .nojekyll
-    git commit -m 'initial commit'
-    git push origin gh-pages
+```bash
+touch .nojekyll
+git add .nojekyll
+git commit -m 'initial commit'
+git push origin gh-pages
+```
 
 ## Setting up Jenkins
 
@@ -141,23 +153,25 @@ branch separately in the next section.
 
 Add an "Execute shell" build step. In it, let's add some code:
 
-    virtualenv .venv
-    source .venv/bin/activate
+```bash
+virtualenv .venv
+source .venv/bin/activate
 
-    repo_url=$(git config --get remote.origin.url)
-    rm -rf master/ || true
-    git clone $repo_url master/
+repo_url=$(git config --get remote.origin.url)
+rm -rf master/ || true
+git clone $repo_url master/
 
-    pip install -U -r master/doc/requirements.txt
-    pip install -U master/
+pip install -U -r master/doc/requirements.txt
+pip install -U master/
 
-    version=$(python master/setup.py --version)
-    git rm -rf ./$version/ || true
-    sphinx-build -b html master/doc/source/ ./$version/
-    ln -sf $version latest
+version=$(python master/setup.py --version)
+git rm -rf ./$version/ || true
+sphinx-build -b html master/doc/source/ ./$version/
+ln -sf $version latest
 
-    git add ./$version/ latest
-    git commit -m "jenkins regenerated documentation $(date +%F)"
+git add ./$version/ latest
+git commit -m "jenkins regenerated documentation $(date +%F)"
+```
 
 ### Pushing to GitHub Pages
 
