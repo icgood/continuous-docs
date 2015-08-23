@@ -9,14 +9,14 @@ started turning these docstrings into beautiful, hosted HTML, updated every
 time you push to GitHub.
 
 To see an example, check out the GitHub Pages for [this
-project](http://icgood.github.io/continuous-docs/), generated using the
+project][2], generated using the
 instructions in this tutorial!
 
 ## Setting Up Your Project
 
 ### Installation
 
-As always, I suggest using a [virtualenv][2] for local Python development!
+As always, I suggest using a [virtualenv][3] for local Python development!
 Inside your virtualenv, run:
 
     pip install sphinx
@@ -112,7 +112,7 @@ The following should suffice:
 
 ### Creating GitHub Pages Branch
 
-GitHub will generate a [GitHub Pages](https://pages.github.com/) site for any
+GitHub will generate a [GitHub Pages][4] site for any
 repository that has a `gh-pages` branch. Let's set ours up now:
 
     git checkout --orphan gh-pages
@@ -188,24 +188,24 @@ unit tests, but using a webhook directly from GitHub pushes works too.
 ***A:*** This is one of my favorite parts of Sphinx, the ability to link
 directly to classes, functions, and modules in third-party projects on the
 Internet. We can do this because we enabled the `intersphinx` extension, see
-[its documentation][3] for its use.
+[its documentation][5] for its use.
 
 ### Q: Does my project meet the requirements?
 
 ***A:*** If you have a `setup.py` with an `install_requires` field to pull in
-its own dependencies from [PyPi][4], that should be all you need!
+its own dependencies from [PyPi][6], that should be all you need!
 
 ### Q: Is it only for documenting code?
 
 ***A:*** Sphinx documentation is built using their heavily extended
-[reStructuredText][5] markup. You can easily add items to your
+[reStructuredText][7] markup. You can easily add items to your
 ``.. toctree::`` with anything you want, such as usage manuals or code samples.
 
 ### Q: What if I don't want to build `master`?
 
 ***A:*** As you may have seen, the Jenkins job clones the master branch of the
 repository and builds the docs from there. However, you could also set up a
-more robust system using the [Copy Artifact Plugin][6], where an upstream build
+more robust system using the [Copy Artifact Plugin][8], where an upstream build
 produces all artifacts necessary to build the documenation. Jenkins is capable
 of some very powerful workflows!
 
@@ -213,12 +213,24 @@ of some very powerful workflows!
 
 ***A:*** The `git clone` command inside the job's execute shell may not apply
 the same SSH keys as the main `gh-pages` clone. You can turn on the [SSH Agent
-Plugin](https://wiki.jenkins-ci.org/display/JENKINS/SSH+Agent+Plugin) and
+Plugin][9] and
 enable it in the job's "Build Environment" section to work around this.
 
+### Q: Why not use [ReadTheDocs][10]?
+
+***A:*** Please do! It is a fantastic service, and the inspiration for this
+tutorial. However, the Jenkins + GitHub Pages duo will work in private [GitHub
+Enterprise][11] environments and gives you full control over the doc building
+process.
+
 [1]: http://pythonhosted.org/an_example_pypi_project/sphinx.html#full-code-example
-[2]: http://www.virtualenv.org/en/latest/
-[3]: http://sphinx-doc.org/latest/ext/intersphinx.html
-[4]: https://pypi.python.org/pypi
-[5]: http://sphinx-doc.org/rest.html
-[6]: https://wiki.jenkins-ci.org/display/JENKINS/Copy+Artifact+Plugin
+[2]: http://icgood.github.io/continuous-docs/
+[3]: http://www.virtualenv.org/en/latest/
+[4]: https://pages.github.com/
+[5]: http://sphinx-doc.org/latest/ext/intersphinx.html
+[6]: https://pypi.python.org/pypi
+[7]: http://sphinx-doc.org/rest.html
+[8]: https://wiki.jenkins-ci.org/display/JENKINS/Copy+Artifact+Plugin
+[9]: https://wiki.jenkins-ci.org/display/JENKINS/SSH+Agent+Plugin
+[10]: https://readthedocs.org/
+[11]: https://enterprise.github.com/home
