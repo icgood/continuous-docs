@@ -8,6 +8,10 @@ keeping docstrings updated with [Sphinx formatting][1]. It's easy to get
 started turning these docstrings into beautiful, hosted HTML, updated every
 time you push to GitHub.
 
+To see an example, check out the GitHub Pages for [this
+project](http://icgood.github.io/continuous-docs/), generated using the
+instructions in this tutorial!
+
 ## Setting Up Your Project
 
 ### Installation
