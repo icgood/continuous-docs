@@ -160,7 +160,8 @@ Add an "Execute shell" build step. In it, let's add some code:
     version=$(python master/setup.py --version)
     git rm -rf ./$version/ || true
     sphinx-build -b html master/doc/source/ ./$version/
-    git add ./$version/
+    ln -sf $version latest
+    git add ./$version/ latest
 
     git commit -m "jenkins regenerated documentation $(date +%F)"
 
