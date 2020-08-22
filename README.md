@@ -1,7 +1,7 @@
 Python Continuous Documentation
 ===============================
 
-[![Build Status](https://travis-ci.com/icgood/continuous-docs.svg?branch=main)](https://travis-ci.com/icgood/continous-docs)
+[![Build Status](https://travis-ci.com/icgood/continuous-docs.svg?branch=main)](https://travis-ci.com/icgood/continuous-docs)
 [![Docs](https://img.shields.io/badge/docs-latest-informational)](http://icgood.github.io/continuous-docs/)
 
 ## Introduction
