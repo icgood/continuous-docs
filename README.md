@@ -243,12 +243,12 @@ now contain your latest and greatest API documentation.
 
 :tada:
 
-[1]: http://pythonhosted.org/an_example_pypi_project/sphinx.html#full-code-example
-[2]: http://icgood.github.io/continuous-docs/
+[1]: https://pythonhosted.org/an_example_pypi_project/sphinx.html#full-code-example
+[2]: https://icgood.github.io/continuous-docs/
 [3]: https://docs.python.org/3/library/venv.html
 [4]: https://pages.github.com/
 [6]: https://pypi.python.org/pypi
-[7]: http://sphinx-doc.org/rest.html
+[7]: https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html
 [8]: https://readthedocs.org/
 [9]: https://travis-ci.com/
 [10]: https://github.com/settings/tokens
