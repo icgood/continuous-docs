@@ -1,19 +1,22 @@
-
-
 """This module contains the configuration routines."""
 
+from typing import Optional, TypeVar
 
-class MyConfig(object):
+T = TypeVar('T')
+
+
+class MyConfig:
     """Loads and manages the configuration.
 
-    :param filename: The filename to load configs from.
+    Args:
+        filename: The filename to load configs from.
 
     """
 
-    def __init__(self, filename):
+    def __init__(self, filename: str) -> None:
         pass
 
-    def get_option(self, name, default=None):
+    def get_option(self, name: str, default: Optional[T] = None) -> T:
         """Returns the requested option from the loaded configs.
 
         :param name: The option name to get.
@@ -22,6 +25,3 @@ class MyConfig(object):
 
         """
         pass
-
-
-# vim:et:fdm=marker:sts=4:sw=4:ts=4
