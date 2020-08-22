@@ -5,6 +5,8 @@ dist: bionic     # https://docs.travis-ci.com/user/languages/python/#python-37-a
 install:
   - travis_retry pip install -U -r doc/requirements.txt
   - travis_retry pip install -e .
+script:
+  - 'true'       # no tests to run
 after_success:
   - make -C doc html
 branches:
