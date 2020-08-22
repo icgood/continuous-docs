@@ -7,7 +7,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>docpkg Package &#8212; docpkg 0.1.0 documentation</title>
+    <title>docpkg.config Module &#8212; docpkg 0.1.0 documentation</title>
     <link rel="stylesheet" href="_static/cloud.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Noticia+Text:400,i,b,bi|Open+Sans:400,i,b,bi|Roboto+Mono:400,i,b,bi&amp;display=swap" type="text/css" />
@@ -36,7 +36,7 @@
 
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="docpkg.main Module" href="docpkg.main.html" /> 
+    <link rel="prev" title="docpkg.main Module" href="docpkg.main.html" /> 
         <meta name="viewport" content="width=device-width, initial-scale=1">
   </head><body>
     <div class="relbar-top">
@@ -52,10 +52,10 @@
              >modules</a> &nbsp; &nbsp;</li>
         <li class="right" >
           <a href="docpkg.main.html" title="docpkg.main Module"
-             accesskey="N">next</a> &nbsp; &nbsp;</li>
-    <li><a href="#">docpkg 0.1.0 documentation</a> &#187;</li>
+             accesskey="P">previous</a> &nbsp; &nbsp;</li>
+    <li><a href="index.html">docpkg 0.1.0 documentation</a> &#187;</li>
 
-        <li class="nav-item nav-item-this"><a href=""><code class="docutils literal notranslate"><span class="pre">docpkg</span></code> Package</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><code class="docutils literal notranslate"><span class="pre">docpkg.config</span></code> Module</a></li> 
       </ul>
     </div>
     </div>
@@ -66,24 +66,38 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <div class="section" id="module-docpkg">
-<span id="docpkg-package"></span><h1><code class="docutils literal notranslate"><span class="pre">docpkg</span></code> Package<a class="headerlink" href="#module-docpkg" title="Permalink to this headline">¶</a></h1>
-<p>This is the base package for <code class="docutils literal notranslate"><span class="pre">docpkg</span></code>.</p>
-<dl class="py exception">
-<dt id="docpkg.DocpkgError">
-<em class="property">exception </em><code class="sig-prename descclassname">docpkg.</code><code class="sig-name descname">DocpkgError</code><a class="headerlink" href="#docpkg.DocpkgError" title="Permalink to this definition">¶</a></dt>
-<dd><p>The base error for the package. All custom exceptions raised will derive
-from this exception.</p>
+  <div class="section" id="module-docpkg.config">
+<span id="docpkg-config-module"></span><h1><code class="docutils literal notranslate"><span class="pre">docpkg.config</span></code> Module<a class="headerlink" href="#module-docpkg.config" title="Permalink to this headline">¶</a></h1>
+<p>This module contains the configuration routines.</p>
+<dl class="py class">
+<dt id="docpkg.config.MyConfig">
+<em class="property">class </em><code class="sig-prename descclassname">docpkg.config.</code><code class="sig-name descname">MyConfig</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">filename</span></em><span class="sig-paren">)</span><a class="headerlink" href="#docpkg.config.MyConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads and manages the configuration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – The filename to load configs from.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt id="docpkg.config.MyConfig.get_option">
+<code class="sig-name descname">get_option</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">default</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#docpkg.config.MyConfig.get_option" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the requested option from the loaded configs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>) – The option name to get.</p></li>
+<li><p><strong>default</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.8)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[~T]) – The default to return, if the option was not found
+in the configs.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>~T</p>
+</dd>
+</dl>
 </dd></dl>
 
-<hr class="docutils" />
-<p><strong>Sub-Modules:</strong></p>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="docpkg.main.html"><code class="docutils literal notranslate"><span class="pre">docpkg.main</span></code> Module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="docpkg.config.html"><code class="docutils literal notranslate"><span class="pre">docpkg.config</span></code> Module</a></li>
-</ul>
-</div>
+</dd></dl>
+
 </div>
 
 
@@ -93,15 +107,15 @@ from this exception.</p>
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-  <div class="sphinxnext">
-    <h4>Next page</h4>
+  <div class="sphinxprev">
+    <h4>Previous page</h4>
     <p class="topless"><a href="docpkg.main.html"
-                          title="Next page">&rarr; <code class="docutils literal notranslate"><span class="pre">docpkg.main</span></code> Module</a></p>
+                          title="Previous page">&larr; <code class="docutils literal notranslate"><span class="pre">docpkg.main</span></code> Module</a></p>
   </div>
   <div role="note" aria-label="source link">
     <h3>This Page</h3>
     <ul class="this-page-menu">
-      <li><a href="_sources/index.rst.txt"
+      <li><a href="_sources/docpkg.config.rst.txt"
             rel="nofollow">Show Source</a></li>
     </ul>
    </div>
@@ -149,10 +163,10 @@ from this exception.</p>
              >modules</a> &nbsp; &nbsp;</li>
         <li class="right" >
           <a href="docpkg.main.html" title="docpkg.main Module"
-             >next</a> &nbsp; &nbsp;</li>
-    <li><a href="#">docpkg 0.1.0 documentation</a> &#187;</li>
+             >previous</a> &nbsp; &nbsp;</li>
+    <li><a href="index.html">docpkg 0.1.0 documentation</a> &#187;</li>
 
-        <li class="nav-item nav-item-this"><a href=""><code class="docutils literal notranslate"><span class="pre">docpkg</span></code> Package</a></li> 
+        <li class="nav-item nav-item-this"><a href=""><code class="docutils literal notranslate"><span class="pre">docpkg.config</span></code> Module</a></li> 
       </ul>
     </div>
     </div>
