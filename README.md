@@ -13,7 +13,7 @@ easy to get started turning these docstrings into beautiful HTML, hosted on
 This repository is intended to be a working example of this method, check out
 [the docs][2].
 
-There is an older version of this tutorial
+This tutorial uses [Travis CI][9], but there is an older version
 [written for Jenkins](https://github.com/icgood/continuous-docs/tree/jenkins).
 
 #### Why not use [ReadTheDocs][8]?
